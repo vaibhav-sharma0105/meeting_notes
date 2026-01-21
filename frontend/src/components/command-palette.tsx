@@ -21,7 +21,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command"
 
-export function CommandMenu() {
+export function CommandMenu({ onOpenSettings }: { onOpenSettings?: () => void }) {
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -74,7 +74,10 @@ export function CommandMenu() {
               <span>Billing</span>
               <CommandShortcut>⌘B</CommandShortcut>
             </CommandItem>
-            <CommandItem>
+            <CommandItem onSelect={() => {
+                setOpen(false);
+                if (onOpenSettings) onOpenSettings();
+            }}>
               <Settings className="mr-2 h-4 w-4" />
               <span>Settings</span>
               <CommandShortcut>⌘S</CommandShortcut>

@@ -3,12 +3,16 @@
 import { BentoGrid, BentoGridItem } from "@/components/bento-grid";
 import { FileUpload } from "@/components/file-upload";
 import { CommandMenu } from "@/components/command-palette";
-import { Calendar as CalendarIcon, FileText, PieChart } from "lucide-react";
+import { SettingsDialog } from "@/components/settings-dialog";
+import { Calendar as CalendarIcon, FileText, PieChart, Settings } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchDashboardData, uploadMeeting } from "@/lib/api";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const queryClient = useQueryClient();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
@@ -46,12 +50,18 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center p-8 bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50">
       <div className="w-full max-w-7xl mb-8 flex justify-between items-center">
         <h1 className="text-4xl font-bold tracking-tight">MeetOps</h1>
-        <div className="text-sm text-neutral-500">
-          Privacy-First Meeting Intelligence
+        <div className="flex items-center gap-4">
+          <div className="text-sm text-neutral-500 hidden md:block">
+            Privacy-First Meeting Intelligence
+          </div>
+          <Button variant="ghost" size="icon" onClick={() => setIsSettingsOpen(true)}>
+            <Settings className="h-5 w-5" />
+          </Button>
         </div>
       </div>
 
-      <CommandMenu />
+      <CommandMenu onOpenSettings={() => setIsSettingsOpen(true)} />
+      <SettingsDialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen} />
 
       <BentoGrid className="w-full mx-auto">
         {/* Item 1: Daily Focus (Large) */}

@@ -8,9 +8,12 @@ import uuid
 from database import get_session, create_db_and_tables, engine
 from models import Meeting, TranscriptChunk, Task, Project
 from services.ingestion import parse_vtt, parse_summary
+from routers import settings as settings_router
 # from services.intelligence import generate_embedding # Commented out to avoid crash without API Key
 
 app = FastAPI(title="MeetOps API")
+
+app.include_router(settings_router.router)
 
 # CORS
 app.add_middleware(
