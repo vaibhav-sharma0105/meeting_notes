@@ -1,0 +1,10 @@
+selected_model: "gpt-4o"
+embedding_model: "openai/text-embedding-3-small"
+
+models:
+  gpt-4o:
+    model: "openai/gpt-4o"
+    api_key: "os.environ/OPENAI_API_KEY"
+  local-llama:
+    model: "ollama/llama3"
+    api_base: "http://localhost:11434"
