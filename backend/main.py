@@ -5,7 +5,7 @@ from typing import List, Optional
 from datetime import datetime
 import uuid
 
-from database import get_session, create_db_and_tables, engine
+from database import get_session, create_db_and_tables, engine, check_db_connection
 from models import Meeting, TranscriptChunk, Task, Project
 from services.ingestion import parse_vtt, parse_summary
 from services.extraction import extract_action_items
@@ -31,12 +31,22 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
+    # Check connection first
+    if not check_db_connection():
+        print("\n" + "="*60)
+        print("CRITICAL ERROR: COULD NOT CONNECT TO DATABASE")
+        print("Please ensure your PostgreSQL database is running.")
+        print("Run: docker-compose up -d db")
+        print("="*60 + "\n")
+        # We don't exit to allow the API to start in a broken state for debugging,
+        # but functionality will be limited.
+        return
+
     # In a real app, use Alembic. For MVP, this is fine.
-    # It might fail if DB is not reachable, so we wrap in try/except for local dev robustness
     try:
         create_db_and_tables()
     except Exception as e:
-        print(f"Warning: Could not connect to database at startup. {e}")
+        print(f"Warning: Could not init DB tables. {e}")
 
 @app.get("/")
 def health_check():

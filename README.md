@@ -35,7 +35,18 @@ An AI-Driven Meeting Intelligence Platform. Ingest Zoom transcripts, generate in
 
 ## Local Development Setup
 
-### Backend
+If you prefer running the Frontend and Backend locally (not in Docker), you **must still run the Database via Docker** unless you have a local Postgres instance with `pgvector` installed.
+
+### 1. Start Database
+**Windows:**
+Double-click `start_db.bat`.
+
+**Mac/Linux:**
+```bash
+./start_db.sh
+```
+
+### 2. Backend
 
 1. Navigate to `backend/`:
    ```bash
@@ -56,7 +67,7 @@ An AI-Driven Meeting Intelligence Platform. Ingest Zoom transcripts, generate in
    uvicorn main:app --reload
    ```
 
-### Frontend
+### 3. Frontend
 
 1. Navigate to `frontend/`:
    ```bash
