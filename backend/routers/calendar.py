@@ -32,14 +32,21 @@ def login(request: Request):
     Initiates the OAuth2 flow.
     Requires 'credentials.json' (Client Secret) to be present in backend/.
     """
-    if not os.path.exists("backend/credentials.json"):
-        # Fallback if running from root
-        if os.path.exists("credentials.json"):
-            creds_path = "credentials.json"
-        else:
-             raise HTTPException(status_code=500, detail="Missing credentials.json. Please configure Google Cloud OAuth.")
-    else:
-        creds_path = "backend/credentials.json"
+    # Robust path finding for credentials.json
+    possible_paths = [
+        "credentials.json",
+        os.path.join("backend", "credentials.json"),
+        os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "credentials.json")
+    ]
+
+    creds_path = None
+    for p in possible_paths:
+        if os.path.exists(p):
+            creds_path = p
+            break
+
+    if not creds_path:
+        raise HTTPException(status_code=500, detail="Missing credentials.json. Please configure Google Cloud OAuth.")
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         creds_path,
@@ -59,7 +66,13 @@ def callback(state: str, code: str, request: Request):
     Handles the callback from Google.
     """
     try:
-        creds_path = "backend/credentials.json" if os.path.exists("backend/credentials.json") else "credentials.json"
+        # Re-find path (copy logic for now, could be utility)
+        possible_paths = [
+            "credentials.json",
+            os.path.join("backend", "credentials.json"),
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "credentials.json")
+        ]
+        creds_path = next((p for p in possible_paths if os.path.exists(p)), "credentials.json")
 
         flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
             creds_path,

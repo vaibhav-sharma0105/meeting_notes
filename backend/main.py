@@ -48,7 +48,12 @@ async def upload_meeting(
     session: Session = Depends(get_session)
 ):
     content = await file.read()
-    content_str = content.decode("utf-8")
+    # Decode safely, ignoring errors or replacing them if UTF-8 fails (common in Windows text files)
+    try:
+        content_str = content.decode("utf-8")
+    except UnicodeDecodeError:
+        # Fallback to latin-1 or similar if utf-8 fails, or ignore
+        content_str = content.decode("utf-8", errors="replace")
 
     file_ext = "vtt"
     if file.filename.endswith(".vtt"):
