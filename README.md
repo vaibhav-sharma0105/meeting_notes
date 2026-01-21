@@ -82,16 +82,21 @@ MeetOps supports dynamic configuration of the LLM provider via the **Settings UI
 3. **Fetch Models:** Click the refresh icon next to the Model dropdown. The system will query the provider and populate the list of available models.
 4. **Google Calendar:** Click "Connect Google Calendar" in settings to authorize access. Requires `backend/credentials.json` from GCP Console (OAuth 2.0 Client ID for Web Application).
 
-### Manual Configuration
-You can also manually edit `backend/config.yaml`:
+## Resetting Local Environment
 
-```yaml
-selected_model: "gpt-4o"
-models:
-  gpt-4o:
-    model: "openai/gpt-4o"
-    api_key: "os.environ/OPENAI_API_KEY"
-  local-llama:
-    model: "ollama/llama3"
-    api_base: "http://localhost:11434"
-```
+If you encounter dependency issues or need to start fresh:
+
+1. **Docker:**
+   ```bash
+   docker-compose down -v --rmi all
+   docker-compose up --build
+   ```
+
+2. **Local Python:**
+   ```bash
+   # In backend/
+   rm -rf venv __pycache__
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
