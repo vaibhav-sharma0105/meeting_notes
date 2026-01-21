@@ -36,7 +36,7 @@ export const FileUpload = ({ onUpload, isUploading }: FileUploadProps) => {
           {fileName ? (
             <span className="font-semibold text-primary">{fileName}</span>
           ) : (
-            "Drop transcript (VTT) or summary (JSON) here"
+            "Drop VTT, JSON, or TXT here"
           )}
         </p>
         <Button

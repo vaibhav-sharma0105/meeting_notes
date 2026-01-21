@@ -8,12 +8,17 @@ import uuid
 from database import get_session, create_db_and_tables, engine
 from models import Meeting, TranscriptChunk, Task, Project
 from services.ingestion import parse_vtt, parse_summary
+from services.extraction import extract_action_items
 from routers import settings as settings_router
+from routers import tasks as tasks_router
+from routers import calendar as calendar_router
 # from services.intelligence import generate_embedding # Commented out to avoid crash without API Key
 
 app = FastAPI(title="MeetOps API")
 
 app.include_router(settings_router.router)
+app.include_router(tasks_router.router)
+app.include_router(calendar_router.router)
 
 # CORS
 app.add_middleware(
@@ -45,10 +50,18 @@ async def upload_meeting(
     content = await file.read()
     content_str = content.decode("utf-8")
 
+    file_ext = "vtt"
+    if file.filename.endswith(".vtt"):
+        file_ext = "vtt"
+    elif file.filename.endswith(".txt"):
+        file_ext = "txt"
+    else:
+        file_ext = "json"
+
     meeting = Meeting(
         title=file.filename,
         source_filename=file.filename,
-        file_type="vtt" if file.filename.endswith(".vtt") else "summary",
+        file_type=file_ext,
         status="processing"
     )
     session.add(meeting)
@@ -59,7 +72,9 @@ async def upload_meeting(
     try:
         if meeting.file_type == "vtt":
             chunks_data = parse_vtt(content_str)
+            full_text = ""
             for c in chunks_data:
+                full_text += f"{c['speaker']}: {c['text']}\n"
                 chunk = TranscriptChunk(
                     meeting_id=meeting.id,
                     start_time=c['start_time'],
@@ -69,11 +84,39 @@ async def upload_meeting(
                     # embedding=generate_embedding(c['text']) # cost money, skip for now
                 )
                 session.add(chunk)
+
+            # Try to extract tasks from transcript too
+            extracted_tasks = extract_action_items(full_text)
+            for t in extracted_tasks:
+                 task = Task(
+                     meeting_id=meeting.id,
+                     description=t.get('description'),
+                     assignee=t.get('assignee'),
+                     status="todo"
+                 )
+                 session.add(task)
+
         else:
-            # Summary
-            data = parse_summary(content_str, "json")
+            # Summary (JSON or TXT)
+            data = parse_summary(content_str, meeting.file_type)
             meeting.summary_text = str(data)
-            # Extract tasks...
+
+            # Extract tasks
+            text_to_analyze = ""
+            if "raw_text" in data:
+                text_to_analyze = data["raw_text"]
+            else:
+                text_to_analyze = json.dumps(data)
+
+            extracted_tasks = extract_action_items(text_to_analyze)
+            for t in extracted_tasks:
+                 task = Task(
+                     meeting_id=meeting.id,
+                     description=t.get('description'),
+                     assignee=t.get('assignee'),
+                     status="todo"
+                 )
+                 session.add(task)
 
         meeting.status = "completed"
         session.add(meeting)

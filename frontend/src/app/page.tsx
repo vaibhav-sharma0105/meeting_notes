@@ -4,7 +4,8 @@ import { BentoGrid, BentoGridItem } from "@/components/bento-grid";
 import { FileUpload } from "@/components/file-upload";
 import { CommandMenu } from "@/components/command-palette";
 import { SettingsDialog } from "@/components/settings-dialog";
-import { Calendar as CalendarIcon, FileText, PieChart, Settings } from "lucide-react";
+import { TaskList } from "@/components/task-list";
+import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchDashboardData, uploadMeeting } from "@/lib/api";
 import { useState } from "react";
@@ -14,9 +15,10 @@ export default function Home() {
   const queryClient = useQueryClient();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["dashboard"],
     queryFn: fetchDashboardData,
+    retry: 1, // Don't retry forever
   });
 
   const uploadMutation = useMutation({
@@ -35,7 +37,17 @@ export default function Home() {
   };
 
   if (isLoading) {
-      return <div className="flex h-screen items-center justify-center">Loading MeetOps...</div>;
+      return <div className="flex h-screen items-center justify-center text-muted-foreground animate-pulse">Loading MeetOps...</div>;
+  }
+
+  if (isError) {
+      return (
+          <div className="flex h-screen flex-col items-center justify-center gap-4">
+              <div className="text-red-500 font-medium">Unable to connect to MeetOps Backend</div>
+              <p className="text-sm text-muted-foreground">Ensure the backend server is running on port 8000.</p>
+              <Button onClick={() => window.location.reload()}>Retry</Button>
+          </div>
+      );
   }
 
   // Fallback if API fails or returns empty
@@ -95,11 +107,20 @@ export default function Home() {
           icon={<FileText className="h-4 w-4 text-neutral-500" />}
         />
 
-        {/* Item 4: Knowledge Cluster */}
+        {/* Item 4: Action Items */}
         <BentoGridItem
-          className="md:col-span-2"
-          title={`Top Project: ${dashboard.top_project?.name || "None"}`}
-          description={dashboard.top_project ? `Identified ${dashboard.top_project.meeting_count} related conversations.` : "Not enough data to cluster."}
+            className="md:col-span-2"
+            title="My Action Items"
+            description="Tasks extracted from your meetings."
+            header={<div className="h-full w-full bg-white dark:bg-black p-2 rounded-lg border border-neutral-200 dark:border-neutral-800"><TaskList /></div>}
+            icon={<CheckSquare className="h-4 w-4 text-neutral-500" />}
+        />
+
+        {/* Item 5: Knowledge Cluster */}
+        <BentoGridItem
+          className="md:col-span-1"
+          title={`Project: ${dashboard.top_project?.name || "None"}`}
+          description={dashboard.top_project ? `${dashboard.top_project.meeting_count} linked calls.` : "Not enough data."}
           header={<div className="h-full w-full bg-gradient-to-br from-neutral-200 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 rounded-lg"></div>}
           icon={<PieChart className="h-4 w-4 text-neutral-500" />}
         />

@@ -156,6 +156,26 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
             </DialogFooter>
             </form>
         )}
+
+        <div className="border-t pt-4 mt-4">
+             <h4 className="text-sm font-medium mb-2">Integrations</h4>
+             <Button variant="outline" className="w-full flex gap-2 items-center justify-center" onClick={async () => {
+                 try {
+                     const res = await api.get("/google/login");
+                     if (res.data.auth_url) {
+                         window.location.href = res.data.auth_url;
+                     }
+                 } catch (e) {
+                     alert("Failed to initiate Google Login. Check backend logs (credentials.json missing?)");
+                 }
+             }}>
+                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.52-.245-2.275H12.24z"/></svg>
+                 Connect Google Calendar
+             </Button>
+             <p className="text-xs text-muted-foreground mt-2 text-center">
+                 Allow MeetOps to read your calendar to link events.
+             </p>
+        </div>
       </DialogContent>
     </Dialog>
   );

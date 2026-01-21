@@ -76,8 +76,8 @@ def parse_summary(file_content: str, file_type: str = "json") -> Dict[str, Any]:
         except json.JSONDecodeError:
             return {"error": "Invalid JSON"}
     else:
-        # For raw text, we just return the text wrapper
-        return {"raw_text": file_content}
+        # For raw text (txt), we returns a dict wrapping it
+        return {"raw_text": file_content, "source_type": "text_upload"}
 
 def extract_tasks_from_summary(summary_data: Dict[str, Any]) -> List[Dict[str, Any]]:
     """

@@ -3,10 +3,12 @@
 An AI-Driven Meeting Intelligence Platform. Ingest Zoom transcripts, generate insights using LLMs (local or cloud), and build a queryable knowledge base.
 
 ## Features
-- **Hybrid Ingestion:** Upload Zoom VTT transcripts or Text/JSON summaries.
+- **Flexible Ingestion:** Upload Zoom VTT, Text files (.txt), or JSON summaries.
+- **AI Task Extraction:** Automatically extracts Action Items, Assignees, and Due Dates using LiteLLM.
+- **Task Management:** Built-in todo list with strike-through completion.
 - **Privacy-First Intelligence:** Use LiteLLM to connect to any model (OpenAI, Anthropic, or Local/Ollama).
 - **Project Clustering:** Automatically groups meetings into "Projects" based on semantic similarity.
-- **Linear-Style UI:** Modern, high-performance dashboard with Bento Grid layout and Command Palette.
+- **Google Calendar Integration:** Connect your Google account to link notes to calendar events.
 - **Runtime Configuration:** Switch models and providers directly from the UI without restarting.
 
 ## Prerequisites
@@ -20,6 +22,7 @@ An AI-Driven Meeting Intelligence Platform. Ingest Zoom transcripts, generate in
 
 1. **Configure Environment**
    - Copy `backend/config.yaml.example` to `backend/config.yaml` and set your LLM credentials.
+   - (Optional) Place `credentials.json` (Google OAuth Client Secret) in `backend/` for Calendar integration.
 
 2. **Run**
    ```bash
@@ -77,7 +80,7 @@ MeetOps supports dynamic configuration of the LLM provider via the **Settings UI
    - **Base URL:** Enter the API endpoint (e.g., `https://api.openai.com/v1`, `http://localhost:11434` for Ollama, or a custom proxy).
    - **API Key:** Enter your key (stored securely in `config.yaml` on the backend).
 3. **Fetch Models:** Click the refresh icon next to the Model dropdown. The system will query the provider and populate the list of available models.
-4. **Save:** Clicking "Save changes" updates the backend configuration immediately.
+4. **Google Calendar:** Click "Connect Google Calendar" in settings to authorize access. Requires `backend/credentials.json` from GCP Console (OAuth 2.0 Client ID for Web Application).
 
 ### Manual Configuration
 You can also manually edit `backend/config.yaml`:
