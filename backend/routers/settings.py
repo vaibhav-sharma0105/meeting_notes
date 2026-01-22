@@ -10,6 +10,7 @@ router = APIRouter(prefix="/settings", tags=["settings"])
 
 class SettingsUpdate(BaseModel):
     selected_model: str
+    embedding_model: Optional[str] = None
     api_base: Optional[str] = None
     api_key: Optional[str] = None
     model_provider: str = "openai" # or ollama, etc.
@@ -27,10 +28,12 @@ def get_settings():
     config = settings._load_config()
 
     selected_model = config.get("selected_model", "gpt-4o")
+    embedding_model = config.get("embedding_model", "openai/text-embedding-3-small")
     model_config = config.get("models", {}).get(selected_model, {})
 
     return {
         "selected_model": selected_model,
+        "embedding_model": embedding_model,
         "api_base": model_config.get("api_base", "https://api.openai.com/v1"),
         "api_key": "*****" if model_config.get("api_key") else "",
         "current_config_dump": config # For debug/MVP
@@ -67,6 +70,9 @@ def update_settings(update: SettingsUpdate):
 
         # Update config object
         config["selected_model"] = model_alias
+        if update.embedding_model:
+            config["embedding_model"] = update.embedding_model
+
         if "models" not in config:
             config["models"] = {}
         config["models"][model_alias] = new_model_config

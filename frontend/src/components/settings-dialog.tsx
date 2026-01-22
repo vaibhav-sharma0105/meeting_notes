@@ -18,6 +18,7 @@ interface SettingsFormValues {
   api_base: string;
   api_key: string;
   selected_model: string;
+  embedding_model: string;
 }
 
 export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
@@ -29,7 +30,8 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
       defaultValues: {
           api_base: "https://api.openai.com/v1",
           api_key: "",
-          selected_model: "gpt-4o"
+          selected_model: "gpt-4o",
+          embedding_model: "openai/text-embedding-3-small"
       }
   });
 
@@ -46,6 +48,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
            setValue("api_base", data.api_base);
            setValue("api_key", data.api_key); // Will be masked
            setValue("selected_model", data.selected_model);
+           setValue("embedding_model", data.embedding_model || "openai/text-embedding-3-small");
            // Seed with current if not fetched yet
            if (availableModels.length === 0) {
                setAvailableModels([data.selected_model, "gpt-4o", "gpt-3.5-turbo"]);
@@ -147,6 +150,23 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
                     </div>
                     <span className="text-xs text-muted-foreground">
                         Click refresh to auto-populate from Base URL.
+                    </span>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="embedding_model" className="text-right">
+                Embedding Model
+                </Label>
+                <div className="col-span-3 flex flex-col gap-2">
+                    <Input
+                        id="embedding_model"
+                        className="w-full"
+                        placeholder="openai/text-embedding-3-small"
+                        {...register("embedding_model")}
+                    />
+                    <span className="text-xs text-muted-foreground">
+                        Specify model name (e.g., openai/..., ollama/nomic-embed-text)
                     </span>
                 </div>
             </div>

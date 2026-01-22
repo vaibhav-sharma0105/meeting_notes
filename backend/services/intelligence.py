@@ -11,6 +11,8 @@ def generate_embedding(text: str) -> List[float]:
     # In a real scenario, we get the specific embedding model from config
     # For now, we assume the user might have defined it or we default
     config = settings.get_llm_config()
+    # Explicitly reload to get latest runtime updates if needed, though settings object usually caches
+    # For MVP, accessing _config directly is fine as it's updated in settings router
     model_name = settings._config.get("embedding_model", "openai/text-embedding-3-small")
 
     try:
