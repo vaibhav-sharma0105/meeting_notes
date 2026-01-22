@@ -6,6 +6,9 @@ import { CommandMenu } from "@/components/command-palette";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { TaskList } from "@/components/task-list";
 import { ChatInterface } from "@/components/chat-interface";
+import { ModeToggle } from "@/components/theme-toggle";
+import { ModeToggle } from "@/components/theme-toggle";
+import { ModeToggle } from "@/components/theme-toggle";
 import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchDashboardData, uploadMeeting } from "@/lib/api";
@@ -67,6 +70,7 @@ export default function Home() {
           <div className="text-sm text-neutral-500 hidden md:block">
             Privacy-First Meeting Intelligence
           </div>
+          <ModeToggle />
           <Button variant="ghost" size="icon" onClick={() => setIsSettingsOpen(true)}>
             <Settings className="h-5 w-5" />
           </Button>

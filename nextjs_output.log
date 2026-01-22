@@ -13,3 +13,177 @@
 	- jsx was set to preserve (next.js implements its own optimized jsx transform)
 
  ✓ Ready in 5.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 20.8s (1023 modules)
+ GET / 200 in 10790ms
+ GET / 200 in 21752ms
+ GET / 200 in 29ms
+ GET / 200 in 28ms
+ GET / 200 in 27ms
+ GET / 200 in 27ms
+ ✓ Compiled /_not-found in 340ms (1012 modules)
+ GET /_next/webpack-hmr 404 in 472ms
+ GET / 200 in 128ms
+ GET / 200 in 32ms
+ GET / 200 in 31ms
+ GET / 200 in 33ms
+ GET /_next/webpack-hmr 404 in 24ms
+ GET / 200 in 25ms
+ GET / 200 in 29ms
+ GET / 200 in 32ms
+ GET / 200 in 28ms
+ GET / 200 in 28ms
+ GET / 200 in 34ms
+ GET / 200 in 24ms
+ GET / 200 in 25ms
+ ✓ Compiled in 400ms (471 modules)
+ ✓ Compiled in 251ms (471 modules)
+ GET / 200 in 47ms
+ GET / 200 in 22ms
+ GET / 200 in 25ms
+ GET / 200 in 30ms
+ GET / 200 in 29ms
+ GET / 200 in 29ms
+ GET / 200 in 33ms
+ GET / 200 in 28ms
+ ✓ Compiled in 385ms (471 modules)
+ GET / 200 in 134ms
+ ✓ Compiled in 144ms (471 modules)
+ ✓ Compiled in 363ms (471 modules)
+ ✓ Compiled in 260ms (471 modules)
+ GET / 200 in 73ms
+ GET / 200 in 24ms
+ GET / 200 in 31ms
+ ✓ Compiled in 1941ms (1026 modules)
+ GET / 200 in 276ms
+ GET / 200 in 32ms
+ GET / 200 in 42ms
+ GET / 200 in 53ms
+ ⨯ ./src/app/page.tsx
+Error:
+  [31mx[0m the name `ModeToggle` is defined multiple times
+    ,-[[36;1;4m/app/frontend/src/app/page.tsx[0m:6:1]
+ [2m 6[0m | import { SettingsDialog } from "@/components/settings-dialog";
+ [2m 7[0m | import { TaskList } from "@/components/task-list";
+ [2m 8[0m | import { ChatInterface } from "@/components/chat-interface";
+ [2m 9[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [31;1m         ^^^^^|^^^^[0m
+    :               [31;1m`-- [31;1mprevious definition of `ModeToggle` here[0m[0m
+ [2m10[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [33;1m         ^^^^^|^^^^[0m
+    :               [33;1m`-- [33;1m`ModeToggle` redefined here[0m[0m
+ [2m11[0m | import { ModeToggle } from "@/components/theme-toggle";
+ [2m12[0m | import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
+ [2m13[0m | import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+    `----
+
+  [31mx[0m the name `ModeToggle` is defined multiple times
+    ,-[[36;1;4m/app/frontend/src/app/page.tsx[0m:7:1]
+ [2m 7[0m | import { TaskList } from "@/components/task-list";
+ [2m 8[0m | import { ChatInterface } from "@/components/chat-interface";
+ [2m 9[0m | import { ModeToggle } from "@/components/theme-toggle";
+ [2m10[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [31;1m         ^^^^^|^^^^[0m
+    :               [31;1m`-- [31;1mprevious definition of `ModeToggle` here[0m[0m
+ [2m11[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [33;1m         ^^^^^|^^^^[0m
+    :               [33;1m`-- [33;1m`ModeToggle` redefined here[0m[0m
+ [2m12[0m | import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
+ [2m13[0m | import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+ [2m14[0m | import { fetchDashboardData, uploadMeeting } from "@/lib/api";
+    `----
+
+Import trace for requested module:
+./src/app/page.tsx
+ ○ Compiling /_error ...
+ ⨯ ./src/app/page.tsx
+Error:
+  [31mx[0m the name `ModeToggle` is defined multiple times
+    ,-[[36;1;4m/app/frontend/src/app/page.tsx[0m:6:1]
+ [2m 6[0m | import { SettingsDialog } from "@/components/settings-dialog";
+ [2m 7[0m | import { TaskList } from "@/components/task-list";
+ [2m 8[0m | import { ChatInterface } from "@/components/chat-interface";
+ [2m 9[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [31;1m         ^^^^^|^^^^[0m
+    :               [31;1m`-- [31;1mprevious definition of `ModeToggle` here[0m[0m
+ [2m10[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [33;1m         ^^^^^|^^^^[0m
+    :               [33;1m`-- [33;1m`ModeToggle` redefined here[0m[0m
+ [2m11[0m | import { ModeToggle } from "@/components/theme-toggle";
+ [2m12[0m | import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
+ [2m13[0m | import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+    `----
+
+  [31mx[0m the name `ModeToggle` is defined multiple times
+    ,-[[36;1;4m/app/frontend/src/app/page.tsx[0m:7:1]
+ [2m 7[0m | import { TaskList } from "@/components/task-list";
+ [2m 8[0m | import { ChatInterface } from "@/components/chat-interface";
+ [2m 9[0m | import { ModeToggle } from "@/components/theme-toggle";
+ [2m10[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [31;1m         ^^^^^|^^^^[0m
+    :               [31;1m`-- [31;1mprevious definition of `ModeToggle` here[0m[0m
+ [2m11[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [33;1m         ^^^^^|^^^^[0m
+    :               [33;1m`-- [33;1m`ModeToggle` redefined here[0m[0m
+ [2m12[0m | import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
+ [2m13[0m | import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+ [2m14[0m | import { fetchDashboardData, uploadMeeting } from "@/lib/api";
+    `----
+
+Import trace for requested module:
+./src/app/page.tsx
+ GET / 500 in 7161ms
+ ⨯ ./src/app/page.tsx
+Error:
+  [31mx[0m the name `ModeToggle` is defined multiple times
+    ,-[[36;1;4m/app/frontend/src/app/page.tsx[0m:6:1]
+ [2m 6[0m | import { SettingsDialog } from "@/components/settings-dialog";
+ [2m 7[0m | import { TaskList } from "@/components/task-list";
+ [2m 8[0m | import { ChatInterface } from "@/components/chat-interface";
+ [2m 9[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [31;1m         ^^^^^|^^^^[0m
+    :               [31;1m`-- [31;1mprevious definition of `ModeToggle` here[0m[0m
+ [2m10[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [33;1m         ^^^^^|^^^^[0m
+    :               [33;1m`-- [33;1m`ModeToggle` redefined here[0m[0m
+ [2m11[0m | import { ModeToggle } from "@/components/theme-toggle";
+ [2m12[0m | import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
+ [2m13[0m | import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+    `----
+
+  [31mx[0m the name `ModeToggle` is defined multiple times
+    ,-[[36;1;4m/app/frontend/src/app/page.tsx[0m:7:1]
+ [2m 7[0m | import { TaskList } from "@/components/task-list";
+ [2m 8[0m | import { ChatInterface } from "@/components/chat-interface";
+ [2m 9[0m | import { ModeToggle } from "@/components/theme-toggle";
+ [2m10[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [31;1m         ^^^^^|^^^^[0m
+    :               [31;1m`-- [31;1mprevious definition of `ModeToggle` here[0m[0m
+ [2m11[0m | import { ModeToggle } from "@/components/theme-toggle";
+    : [33;1m         ^^^^^|^^^^[0m
+    :               [33;1m`-- [33;1m`ModeToggle` redefined here[0m[0m
+ [2m12[0m | import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
+ [2m13[0m | import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+ [2m14[0m | import { fetchDashboardData, uploadMeeting } from "@/lib/api";
+    `----
+
+Import trace for requested module:
+./src/app/page.tsx
+ GET / 500 in 71ms
+ GET / 500 in 17ms
+ GET / 500 in 34ms
+ GET / 500 in 26ms
+ GET / 500 in 18ms
+ GET / 500 in 52ms
+ GET / 500 in 23ms
+ GET / 500 in 35ms
+ GET / 500 in 28ms
+ GET / 500 in 32ms
+ GET / 500 in 27ms
+ GET / 500 in 39ms
+ GET / 500 in 33ms
+ GET / 500 in 20ms
+ GET / 500 in 13ms
+ GET / 500 in 20ms
+ ✓ Compiled /_error in 815ms (517 modules)
+ ✓ Compiled in 295ms (469 modules)
