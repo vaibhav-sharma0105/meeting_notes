@@ -49,15 +49,25 @@ export function CommandMenu({ onOpenSettings }: { onOpenSettings?: () => void })
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Suggestions">
-            <CommandItem>
+            <CommandItem onSelect={() => {
+                setOpen(false);
+                // In a multi-page app, we'd route. Here we just close.
+                // Could implement scrolling or focus specific widgets.
+                const el = document.getElementById("calendar-widget");
+                el?.scrollIntoView({ behavior: "smooth" });
+            }}>
               <Calendar className="mr-2 h-4 w-4" />
               <span>Calendar</span>
             </CommandItem>
-            <CommandItem>
+            <CommandItem onSelect={() => {
+                setOpen(false);
+                const el = document.getElementById("search-widget");
+                el?.scrollIntoView({ behavior: "smooth" });
+            }}>
               <Smile className="mr-2 h-4 w-4" />
               <span>Search Projects</span>
             </CommandItem>
-            <CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}>
               <Calculator className="mr-2 h-4 w-4" />
               <span>Recent Meetings</span>
             </CommandItem>

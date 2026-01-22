@@ -12,6 +12,7 @@ from services.extraction import extract_action_items
 from routers import settings as settings_router
 from routers import tasks as tasks_router
 from routers import calendar as calendar_router
+from routers import chat as chat_router
 # from services.intelligence import generate_embedding # Commented out to avoid crash without API Key
 
 app = FastAPI(title="MeetOps API")
@@ -19,6 +20,7 @@ app = FastAPI(title="MeetOps API")
 app.include_router(settings_router.router)
 app.include_router(tasks_router.router)
 app.include_router(calendar_router.router)
+app.include_router(chat_router.router)
 
 # CORS
 app.add_middleware(

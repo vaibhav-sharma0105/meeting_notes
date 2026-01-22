@@ -46,7 +46,8 @@ def login(request: Request):
             break
 
     if not creds_path:
-        raise HTTPException(status_code=500, detail="Missing credentials.json. Please configure Google Cloud OAuth.")
+        # Return 400 or 404 to indicate client configuration error, not server crash
+        raise HTTPException(status_code=400, detail="Missing credentials.json. Please place it in the backend folder.")
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         creds_path,

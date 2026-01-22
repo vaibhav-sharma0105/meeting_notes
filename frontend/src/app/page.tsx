@@ -5,6 +5,7 @@ import { FileUpload } from "@/components/file-upload";
 import { CommandMenu } from "@/components/command-palette";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { TaskList } from "@/components/task-list";
+import { ChatInterface } from "@/components/chat-interface";
 import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchDashboardData, uploadMeeting } from "@/lib/api";
@@ -74,6 +75,8 @@ export default function Home() {
 
       <CommandMenu onOpenSettings={() => setIsSettingsOpen(true)} />
       <SettingsDialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen} />
+
+      <ChatInterface />
 
       <BentoGrid className="w-full mx-auto">
         {/* Item 1: Daily Focus (Large) */}
