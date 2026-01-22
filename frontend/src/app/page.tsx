@@ -7,8 +7,6 @@ import { SettingsDialog } from "@/components/settings-dialog";
 import { TaskList } from "@/components/task-list";
 import { ChatInterface } from "@/components/chat-interface";
 import { ModeToggle } from "@/components/theme-toggle";
-import { ModeToggle } from "@/components/theme-toggle";
-import { ModeToggle } from "@/components/theme-toggle";
 import { Calendar as CalendarIcon, FileText, PieChart, Settings, CheckSquare } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchDashboardData, uploadMeeting } from "@/lib/api";

@@ -187,3 +187,4 @@ Import trace for requested module:
  GET / 500 in 20ms
  ✓ Compiled /_error in 815ms (517 modules)
  ✓ Compiled in 295ms (469 modules)
+ ✓ Compiled in 5.9s (469 modules)
